@@ -9,26 +9,41 @@ $query = $db->prepare('SELECT * FROM `insect-collection`;');
 $query->execute();
 $allInsects = $query->fetchAll();
 
-$numberOfInsects = count($allInsects);
-
 ?>
 
 <!DOCTYPE html>
 
-<html lang="eng">
+<html lang="en-gb">
 <head>
     <title>INSECT COLLECTION</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="https://use.typekit.net/olf2ixx.css">
+    <link rel="stylesheet" href="https://use.typekit.net/olf2ixx.css">
 </head>
 <body>
-<h1>INSECT COLLECTION</h1>
-
-<?php
-
-printInsects($allInsects, $numberOfInsects);
-
-?>
-
+    <div class="content-wrapper">
+        <img class="green-leaf" src="images/green_leaf.svg" alt="">
+        <h1>
+           <span class="title-insect">INSECT</span>
+           <span class="title-collector">COLLECTOR</span>
+        </h1>
+        <section class="add-insect-option">
+            <p>Did you spot a new insect?!</p>
+            <a href="#add-insect-form">
+                <button class="add-now-button">add now!</button>
+            </a>
+        </section>
+        <section class="container-insects">
+         <?php
+              foreach ($allInsects as $insect) {
+                   echo printInsect($insect);
+              }
+         ?>
+        </section>
+        <form id="add-insect-form" class="add-insect-form">
+        </form>
+    </div>
 </body>
 </html>
