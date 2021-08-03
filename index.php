@@ -13,7 +13,7 @@ $allInsects = $query->fetchAll();
 
 <!DOCTYPE html>
 
-<html lang="eng">
+<html lang="en-gb">
 <head>
     <title>INSECT COLLECTION</title>
     <meta charset="UTF-8">
@@ -24,24 +24,24 @@ $allInsects = $query->fetchAll();
 </head>
 <body>
     <div class="content-wrapper">
-        <img class="green-leaf" src="images/green_leaf.svg">
+        <img class="green-leaf" src="images/green_leaf.svg" alt="">
         <h1>
            <span class="title-insect">INSECT</span>
            <span class="title-collector">COLLECTOR</span>
         </h1>
-        <div class="add-insect">
+        <section class="add-insect-option">
             <p>Did you spot a new insect?!</p>
             <a href="#add-insect-form">
                 <button class="add-now-button">add now!</button>
             </a>
-        </div>
-        <div class="container-insects">
+        </section>
+        <section class="container-insects">
          <?php
               foreach ($allInsects as $insect) {
                    echo printInsect($insect);
               }
          ?>
-        </div>
+        </section>
         <form id="add-insect-form" class="add-insect-form">
         </form>
     </div>
