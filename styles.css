@@ -34,7 +34,7 @@ h1 {
     margin-left: 55px;
 }
 
-.add-insect {
+.add-insect-option {
     position: relative;
     top: 70px;
     right: 80px;
@@ -42,7 +42,7 @@ h1 {
     float: right;
 }
 
-.add-insect p {
+.add-insect-option p {
     font-size: 1.5rem;
     font-weight: 700;
 }
@@ -124,7 +124,7 @@ h2 {
     .insects {
         width: 50%;
     }
-    .add-insect {
+    .add-insect-option {
         right: 0;
     }
 }
@@ -133,7 +133,7 @@ h2 {
     .container-insects {
         top: -180px;
     }
-    .add-insect {
+    .add-insect-option {
         float: none;
         position: relative;
         top: -230px;
@@ -146,7 +146,7 @@ h2 {
         line-height: 3.9rem;
         top: 28px;
     }
-    .add-insect {
+    .add-insect-option {
         float: none;
         position: relative;
         top: -180px;
