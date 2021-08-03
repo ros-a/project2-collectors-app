@@ -1,7 +1,6 @@
 <?php
 
-function printInsect (array $dbRow) : string
-{
+function printInsect (array $dbRow) : string {
     if (array_key_exists('image_path', $dbRow) && array_key_exists('common_name', $dbRow) && array_key_exists('species', $dbRow) && array_key_exists('date_spotted', $dbRow) && array_key_exists('location_spotted', $dbRow) && array_key_exists('size', $dbRow)) {
         return '<div class="insects">' .
                     '<img src="' . $dbRow['image_path'] . '">' .
@@ -12,6 +11,6 @@ function printInsect (array $dbRow) : string
                     '<p>Size: ' . $dbRow['size'] . '</p>' .
                 '</div>';
     } else {
-        return 'I\'m sorry, that array doesn\'t contain the expected keys';
+        return 'I\'m sorry, that array doesn\'t contain the expected keys.';
     }
 }
