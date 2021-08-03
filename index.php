@@ -9,9 +9,6 @@ $query = $db->prepare('SELECT * FROM `insect-collection`;');
 $query->execute();
 $allInsects = $query->fetchAll();
 
-$numberOfInsects = count($allInsects);
-
-
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +29,12 @@ $numberOfInsects = count($allInsects);
            <span class="title-insect">INSECT</span>
            <span class="title-collector">COLLECTOR</span>
         </h1>
+        <div class="add-insect">
+            <p>Did you spot a new insect?!</p>
+            <a href="#add-insect-form">
+                <button class="add-now-button">add now!</button>
+            </a>
+        </div>
         <div class="container-insects">
          <?php
               foreach ($allInsects as $insect) {
@@ -39,6 +42,8 @@ $numberOfInsects = count($allInsects);
               }
          ?>
         </div>
+        <form id="add-insect-form" class="add-insect-form">
+        </form>
     </div>
 </body>
 </html>
