@@ -1,19 +1,22 @@
 * {
-    font-family: sans-serif;
     box-sizing: border-box;
+    font-family: neue-haas-unica, sans-serif;
     margin: 0;
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .content-wrapper {
     margin: 0 5vw;
-    padding-top: 0;
 }
 
 h1 {
     font-family: scriptorama-markdown-jf, sans-serif;
     font-size: 4rem;
-    letter-spacing: 0.1rem;
+    letter-spacing: 0.2rem;
     line-height: 5.5rem;
     position: absolute;
     top: 50px;
@@ -29,6 +32,37 @@ h1 {
 
 .title-collector {
     margin-left: 55px;
+}
+
+.add-insect {
+    position: relative;
+    top: 70px;
+    right: 80px;
+    text-align: center;
+    float: right;
+}
+
+.add-insect p {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.add-now-button {
+    font-family: scriptorama-markdown-jf, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background-color: #F26608;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    margin-top: 30px;
+}
+
+.add-now-button:hover {
+    cursor: pointer;
 }
 
 h2 {
@@ -90,6 +124,20 @@ h2 {
     .insects {
         width: 50%;
     }
+    .add-insect {
+        right: 0;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .container-insects {
+        top: -180px;
+    }
+    .add-insect {
+        float: none;
+        position: relative;
+        top: -230px;
+    }
 }
 
 @media only screen and (max-width: 650px) {
@@ -98,15 +146,21 @@ h2 {
         line-height: 3.9rem;
         top: 28px;
     }
+    .add-insect {
+        float: none;
+        position: relative;
+        top: -180px;
+    }
     .green-leaf {
         width: 300px;
         top: -150px;
     }
     .container-insects {
-        top: -150px;
+        top: -130px;
         justify-content: space-around;
     }
     .insects {
         width: 90%;
     }
 }
+
