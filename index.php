@@ -11,6 +11,7 @@ $allInsects = $query->fetchAll();
 
 $numberOfInsects = count($allInsects);
 
+
 ?>
 
 <!DOCTYPE html>
@@ -20,15 +21,24 @@ $numberOfInsects = count($allInsects);
     <title>INSECT COLLECTION</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="https://use.typekit.net/olf2ixx.css">
+    <link rel="stylesheet" href="https://use.typekit.net/olf2ixx.css">
 </head>
 <body>
-<h1>INSECT COLLECTION</h1>
-
-<?php
-
-printInsects($allInsects, $numberOfInsects);
-
-?>
-
+    <div class="content-wrapper">
+        <img class="green-leaf" src="images/green_leaf.svg">
+        <h1>
+           <span class="title-insect">INSECT</span>
+           <span class="title-collector">COLLECTOR</span>
+        </h1>
+        <div class="container-insects">
+         <?php
+              foreach ($allInsects as $insect) {
+                   echo printInsect($insect);
+              }
+         ?>
+        </div>
+    </div>
 </body>
 </html>
