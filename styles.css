@@ -1,0 +1,12 @@
+* {
+    font-family: sans-serif;
+}
+
+h1 {
+    font-size: 5rem;
+}
+
+img {
+    border-radius: 50%;
+    width: 20vw;
+}
