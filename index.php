@@ -29,12 +29,6 @@ $allInsects = $query->fetchAll();
            <span class="title-insect">INSECT</span>
            <span class="title-collector">COLLECTOR</span>
         </h1>
-        <section class="add-insect-option">
-            <p>Did you spot a new insect?!</p>
-            <a href="#add-insect-form">
-                <button class="add-now-button">add now!</button>
-            </a>
-        </section>
         <section class="container-insects">
          <?php
               foreach ($allInsects as $insect) {
@@ -42,8 +36,6 @@ $allInsects = $query->fetchAll();
               }
          ?>
         </section>
-        <form id="add-insect-form" class="add-insect-form">
-        </form>
     </div>
 </body>
 </html>
