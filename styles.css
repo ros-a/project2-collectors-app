@@ -35,6 +35,42 @@ h1 {
 }
 
 
+.add-insect-option {
+    position: relative;
+    top: 70px;
+    right: 80px;
+    text-align: center;
+    float: right;
+}
+
+.add-insect-option p {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.add-now-button, .add-to-collection-button {
+    font-family: scriptorama-markdown-jf, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background-color: #F26608;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    margin-top: 30px;
+}
+
+.add-to-collection-button {
+    margin-top: 0;
+}
+
+.add-now-button:hover {
+    cursor: pointer;
+}
+
+
 h2 {
     font-family: scriptorama-markdown-jf, sans-serif;
     font-size: 1.5rem;
@@ -89,6 +125,51 @@ h2 {
 .insects image {
     width: 100%;
 }
+
+form {
+    margin-left: 30vw;
+    background-color: #C0E5B7;
+    border-radius: 20px;
+    width: 400px;
+    padding: 1px 0 40px 40px;
+}
+
+label {
+    text-transform: uppercase;
+    padding: 20px 0 15px 0;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+}
+
+label, input {
+    display: block;
+}
+
+input {
+    width: 300px;
+    padding: 10px 15px 10px 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+form {
+    margin-bottom: 10px;
+}
+
+.upload-image-button {
+    cursor: pointer;
+    color: #fff;
+    background: #358721;
+    padding: 7px 7px 7px 13px;
+    width: 160px;
+    border-radius: 5px;
+    margin-top: 35px;
+}
+
+input[type="file"] {
+    visibility: hidden;
+}
+
 
 @media only screen and (max-width: 1100px) {
     .insects {
