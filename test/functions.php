@@ -16,7 +16,7 @@ class Functions extends TestCase
             'location_spotted' => 'India',
             'size' => '5-20 mm',
             'image_path' => 'images/jewel_bug.jpeg'];
-        $expectedOutput = '<div class="insects"><img src="images/jewel_bug.jpeg"><h2>Jewel Bug</h2>' .
+        $expectedOutput = '<div class="insects"><img src="images/jewel_bug.jpeg" alt="Image of a Jewel Bug"><h2>Jewel Bug</h2>' .
             '<p class="species">Scutiphora Pedicellata</p><p>Date spotted: 2018-03-15</p>' .
              '<p>Location spotted: India</p><p>Size: 5-20 mm</p></div>';
         $actualOutput = printInsect($input);
@@ -25,7 +25,7 @@ class Functions extends TestCase
     public function testFailurePrintInsect()
     {
         $input = ['id' => '1', 'name' => 'Jewel Bug', 'species' => 'Scutiphora Pedicellata', 'date_spotted' => '2018-03-15', 'location_spotted' => 'India', 'size' => '5-20 mm', 'image_path' => 'images/jewel_bug.jpeg'];
-        $expectedOutput = 'I\'m sorry, that array doesn\'t contain the expected keys';
+        $expectedOutput = 'I\'m sorry, that array doesn\'t contain the expected keys.';
         $actualOutput = printInsect($input);
         $this->assertEquals($expectedOutput, $actualOutput);
     }

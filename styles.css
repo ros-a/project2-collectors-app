@@ -34,36 +34,6 @@ h1 {
     margin-left: 55px;
 }
 
-.add-insect-option {
-    position: relative;
-    top: 70px;
-    right: 80px;
-    text-align: center;
-    float: right;
-}
-
-.add-insect-option p {
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-.add-now-button {
-    font-family: scriptorama-markdown-jf, sans-serif;
-    font-size: 1.4rem;
-    font-weight: 800;
-    padding: 10px 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    background-color: #F26608;
-    border-radius: 5px;
-    border: none;
-    color: #fff;
-    margin-top: 30px;
-}
-
-.add-now-button:hover {
-    cursor: pointer;
-}
 
 h2 {
     font-family: scriptorama-markdown-jf, sans-serif;
