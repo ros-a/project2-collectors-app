@@ -24,7 +24,7 @@ $allInsects = $query->fetchAll();
             $addInsect->bindParam(':insectSize', $insectSize);
             $addInsect->bindParam(':filePath', $filePath);
             $errorMessages = [];
-            if (!preg_match_all('/^[A-Za-z\s]+$/', $commonName)) {
+            if (!preg_match_all('/^[A-Za-z\s]+$/', $commonName) || $commonName === '') {
                 $errorMessages[] = "You did not enter a valid name.";
             }
             if ($species !== '' && !preg_match_all('/^[A-Za-z\s]+$/', $species)) {
