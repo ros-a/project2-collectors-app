@@ -45,14 +45,6 @@ $allInsects = $query->fetchAll();
                 $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
                 $name = $_FILES['upload-image']['name'];
                 $filePath = $uploadsDir . $targetFile;
-                $imageInfo = getimagesize($_FILES['upload-image']['tmp_name']);
-                $imageWidth = $imageInfo[0];
-                $imageHeight = $imageInfo[1];
-                echo $imageWidth;
-                echo $imageHeight;
-                if ($imageWidth !== $imageHeight) {
-                    $errorMessages[] = "Please upload a square image.";
-                }
                 if ($_FILES["upload-image"]["size"] > 10000000) {
                     $errorMessages[] = "Your image file is too large. The max size is 10 MB.";
                 }
@@ -129,7 +121,7 @@ $allInsects = $query->fetchAll();
             <input type="text" id="country-spotted" name="country-spotted" placeholder="where did you spot this insect?" required>
             <label for="insect-size">Size in mm</label>
             <input type="text" id="insect-size" name="insect-size" placeholder="what is the approximate size in mm?" required>
-            <p class="upload-image-request">upload a square image</p>
+            <p class="upload-image-request">upload an image</p>
             <label for="upload-image" class="upload-image-button">Choose Image</label>
             <input type="file" name="upload-image" id="upload-image">
             <button name="submit" class="add-to-collection-button">add to collection!</button>
