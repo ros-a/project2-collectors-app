@@ -24,13 +24,13 @@ $allInsects = $query->fetchAll();
             $addInsect->bindParam(':insectSize', $insectSize);
             $addInsect->bindParam(':filePath', $filePath);
             $errorMessages = [];
-            if (!preg_match_all('/^[A-Za-z\s]+$/', $commonName) || $commonName === '') {
+            if (!preg_match_all('/^[A-Za-z\s-]+$/', $commonName) || $commonName === '') {
                 $errorMessages[] = "You did not enter a valid name.";
             }
-            if ($species !== '' && !preg_match_all('/^[A-Za-z\s]+$/', $species)) {
+            if ($species !== '' && !preg_match_all('/^[A-Za-z\s-]+$/', $species)) {
                 $errorMessages[] = "You did not enter a valid species.";
             }
-            if (!preg_match_all('/^[A-Za-z\s]+$/', $countrySpotted)) {
+            if (!preg_match_all('/^[A-Za-z\s-]+$/', $countrySpotted)) {
                 $errorMessages[] = "You did not enter a valid country.";
             }
             if (!preg_match_all('/(\\d)+$\s?(mm)?/', $insectSize)) {
