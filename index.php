@@ -15,11 +15,6 @@ $allInsects = $query->fetchAll();
             $dateSpotted = $_POST['date-spotted'];
             $countrySpotted = $_POST['country-spotted'];
             $insectSize = $_POST['insect-size'];
-            $uploadsDir = 'uploads/';
-            $targetFile = basename($_FILES["upload-image"]["name"]);
-            $imageFileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
-            $name = $_FILES['upload-image']['name'];
-            $filePath = $uploadsDir . $targetFile;
             $addInsect = $db->prepare("INSERT INTO `insect-collection` (`common_name`, `species`, `date_spotted`, 
             `country_spotted`, `size`, `image_path`) VALUES (:commonName, :species, :dateSpotted, :countrySpotted, :insectSize, :filePath)");
             $addInsect->bindParam(':commonName', $commonName);
@@ -44,11 +39,20 @@ $allInsects = $query->fetchAll();
             if (substr($insectSize, -2) !== 'mm') {
                 $insectSize .= ' mm';
             }
-            if ($_FILES["upload-image"]["size"] > 10000000) {
-                $errorMessages[] = "Your image file is too large. The max size is 10 MB.";
-            }
-            if ($imageFileType !== "jpg" && $imageFileType !== "jpeg") {
-                $errorMessages[] = "Only JPG or JPEG image files are allowed.";
+            if (isset($_FILES["upload-image"])) {
+                $uploadsDir = 'uploads/';
+                $targetFile = basename($_FILES["upload-image"]["name"]);
+                $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+                $name = $_FILES['upload-image']['name'];
+                $filePath = $uploadsDir . $targetFile;
+                if ($_FILES["upload-image"]["size"] > 10000000) {
+                    $errorMessages[] = "Your image file is too large. The max size is 10 MB.";
+                }
+                if (($imageFileType !== "jpg" && $imageFileType !== "jpeg")) {
+                    $errorMessages[] = "Only JPG or JPEG image files are allowed.";
+                }
+            } else {
+                $errorMessages[] = "You did not upload a valid image file.";
             }
             if (empty($errorMessages)) {
                 move_uploaded_file($_FILES['upload-image']['tmp_name'], $uploadsDir . $name);
