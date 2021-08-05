@@ -131,18 +131,22 @@ form {
     top: 200px;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #C0E5B7;
+    background-color: #E1F2DD;
     border-radius: 20px;
     width: 400px;
     padding: 1px 0 40px 40px;
 }
 
-label {
+label, .upload-image-request {
     text-transform: uppercase;
     padding: 20px 0 15px 0;
     font-weight: 600;
     letter-spacing: 0.05rem;
     color: #444444;
+}
+
+.upload-image-request {
+    margin-top: 20px;
 }
 
 label, input {
@@ -163,7 +167,7 @@ input {
     padding: 7px 7px 7px 13px;
     width: 160px;
     border-radius: 5px;
-    margin-top: 35px;
+    margin-top: 5px;
 }
 
 input[type="file"] {
@@ -203,6 +207,9 @@ input[type="file"] {
     }
     .add-insect-option {
         right: 0;
+    }
+    .error-message, .success-message {
+        width: 90vw;
     }
 }
 
