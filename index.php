@@ -112,7 +112,7 @@ $allInsects = $query->fetchAll();
         <form id="add-insect-form" class="add-insect-form" action="index.php" method="post" enctype="multipart/form-data">
             <h2>add a new insect</h2>
             <label for="common-name">common name</label>
-            <input type="text" id="common-name" name="common-name" placeholder="e.g. polyester bee">
+            <input type="text" id="common-name" name="common-name" placeholder="e.g. polyester bee"  required>
             <label for="species">species</label>
             <input type="text" id="species" name="species" placeholder="if known, enter scientific name">
             <label for="date-spotted">date spotted</label>
