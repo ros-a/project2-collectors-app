@@ -9,7 +9,6 @@ button:hover {
     cursor: pointer;
 }
 
-
 html {
     scroll-behavior: smooth;
 }
@@ -38,7 +37,6 @@ h1 {
 .title-collector {
     margin-left: 55px;
 }
-
 
 .add-insect-option {
     position: relative;
@@ -107,23 +105,27 @@ h2 {
     top: -200px;
 }
 
-.container-insects img {
-    border-radius: 50%;
-    width: 80%;
-}
-
 .container-insects p {
     font-family: neue-haas-unica, sans-serif;
 }
 
 .insects {
-    width: 33%;
+    width: 33.3%;
     text-align: center;
-    padding-bottom: 100px;
+    padding-bottom: 80px;
 }
 
-.insects image {
+.image-cropper image {
     width: 100%;
+}
+
+.image-cropper {
+    width: 23vw;
+    height: 23vw;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
 }
 
 form {
@@ -135,6 +137,7 @@ form {
     border-radius: 20px;
     width: 400px;
     padding: 1px 0 40px 40px;
+    margin-top: 80px;
 }
 
 label, .upload-image-request {
@@ -211,6 +214,10 @@ input[type="file"] {
     .error-message, .success-message {
         width: 90vw;
     }
+    .image-cropper {
+        width: 35vw;
+        height: 35vw;
+    }
 }
 
 @media only screen and (max-width: 920px) {
@@ -245,6 +252,10 @@ input[type="file"] {
     }
     .insects {
         width: 90%;
+    }
+    .image-cropper {
+        width: 65vw;
+        height: 65vw;
     }
 }
 
