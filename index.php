@@ -27,7 +27,7 @@ $allInsects = $query->fetchAll();
             if (!preg_match_all('/^[A-Za-z\s]+$/', $commonName)) {
                 $errorMessages[] = "You did not enter a valid name.";
             }
-            if (!preg_match_all('/^[A-Za-z\s]+$/', $species)) {
+            if ($species !== '' && !preg_match_all('/^[A-Za-z\s]+$/', $species)) {
                 $errorMessages[] = "You did not enter a valid species.";
             }
             if (!preg_match_all('/^[A-Za-z\s]+$/', $countrySpotted)) {
@@ -45,6 +45,14 @@ $allInsects = $query->fetchAll();
                 $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
                 $name = $_FILES['upload-image']['name'];
                 $filePath = $uploadsDir . $targetFile;
+                $imageInfo = getimagesize($_FILES['upload-image']['tmp_name']);
+                $imageWidth = $imageInfo[0];
+                $imageHeight = $imageInfo[1];
+                echo $imageWidth;
+                echo $imageHeight;
+                if ($imageWidth !== $imageHeight) {
+                    $errorMessages[] = "Please upload a square image.";
+                }
                 if ($_FILES["upload-image"]["size"] > 10000000) {
                     $errorMessages[] = "Your image file is too large. The max size is 10 MB.";
                 }
@@ -52,7 +60,7 @@ $allInsects = $query->fetchAll();
                     $errorMessages[] = "Only JPG or JPEG image files are allowed.";
                 }
             } else {
-                $errorMessages[] = "You did not upload a valid image file.";
+                    $errorMessages[] = "You did not upload a valid image file.";
             }
             if (empty($errorMessages)) {
                 move_uploaded_file($_FILES['upload-image']['tmp_name'], $uploadsDir . $name);
@@ -62,13 +70,15 @@ $allInsects = $query->fetchAll();
             } else {
                 echo '<div class="error-message"><p>Sorry, your insect could not be added to the collection!</p>';
                 if(count($errorMessages) > 1) {
-                    echo "<p>There were a few problems:</p><ul>";
+                    echo '<p>There were a few problems:</p>';
+                    echo '<ul>';
                     } elseif (count($errorMessages) === 1) {
-                    echo "<p>There was a problem:</p>";
+                    echo '<p>There was a problem:</p>';
                    }
                 foreach ($errorMessages as $errorMessage) {
-                    echo '<li>' . $errorMessage . '</li></ul>';
+                    echo '<li>' . $errorMessage . '</li>';
                 }
+                echo '</ul>';
                 echo '<a href="#add-insect-form"><button class="pop-up-button">Try again!</button></a></div>';
                 echo '</div';
             }
@@ -119,7 +129,8 @@ $allInsects = $query->fetchAll();
             <input type="text" id="country-spotted" name="country-spotted" placeholder="where did you spot this insect?" required>
             <label for="insect-size">Size in mm</label>
             <input type="text" id="insect-size" name="insect-size" placeholder="what is the approximate size in mm?" required>
-            <label for="upload-image" class="upload-image-button">Upload Image</label>
+            <p class="upload-image-request">upload a square image</p>
+            <label for="upload-image" class="upload-image-button">Choose Image</label>
             <input type="file" name="upload-image" id="upload-image">
             <button name="submit" class="add-to-collection-button">add to collection!</button>
         </form>
