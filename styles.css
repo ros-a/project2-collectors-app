@@ -121,6 +121,7 @@ h2 {
 
 .image-cropper image {
     width: 100%;
+    height: auto;
 }
 
 .image-cropper {
