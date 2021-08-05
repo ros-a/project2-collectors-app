@@ -1,64 +1,128 @@
 <?php
 
-$player1 = [];
-$player2 = [];
+require_once "functions.php";
 
-$cards = [
-    'ace' => 11,
-    '2' => 2,
-    '3' => 3,
-    '4' => 4,
-    '5' => 5,
-    '6' => 6,
-    '7' => 7,
-    '8' => 8,
-    '9' => 9,
-    '10' => 10,
-    'jack' => 10,
-    'queen' => 10,
-    'king' => 10
-];
+$db = new PDO('mysql:host=db; dbname=collectorsApp', 'root', 'password');
+$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-$random_number1 = rand(0, 12);
-$random_number2 = rand(0, 12);
-$random_number3 = rand(0, 12);
-$random_number4 = rand(0, 12);
+$query = $db->prepare('SELECT * FROM `insect-collection`;');
+$query->execute();
+$allInsects = $query->fetchAll();
 
-$keys_cards = array_keys($cards);
+        if(isset($_POST['submit'])) {
+            $commonName = $_POST['common-name'];
+            $species = $_POST['species'];
+            $dateSpotted = $_POST['date-spotted'];
+            $countrySpotted = $_POST['country-spotted'];
+            $insectSize = $_POST['insect-size'];
+            $addInsect = $db->prepare("INSERT INTO `insect-collection` (`common_name`, `species`, `date_spotted`, 
+            `country_spotted`, `size`, `image_path`) VALUES (:commonName, :species, :dateSpotted, :countrySpotted, :insectSize, :filePath)");
+            $addInsect->bindParam(':commonName', $commonName);
+            $addInsect->bindParam(':species', $species);
+            $addInsect->bindParam(':dateSpotted', $dateSpotted);
+            $addInsect->bindParam(':countrySpotted', $countrySpotted);
+            $addInsect->bindParam(':insectSize', $insectSize);
+            $addInsect->bindParam(':filePath', $filePath);
+            $errorMessages = [];
+            if (!preg_match_all('/^[A-Za-z\s]+$/', $commonName)) {
+                $errorMessages[] = "You did not enter a valid name.";
+            }
+            if (!preg_match_all('/^[A-Za-z\s]+$/', $species)) {
+                $errorMessages[] = "You did not enter a valid species.";
+            }
+            if (!preg_match_all('/^[A-Za-z\s]+$/', $countrySpotted)) {
+                $errorMessages[] = "You did not enter a valid country.";
+            }
+            if (!preg_match_all('/(\\d)+$\s?(mm)?/', $insectSize)) {
+                $errorMessages[] = "You did not enter a valid insect size.";
+            }
+            if (substr($insectSize, -2) !== 'mm') {
+                $insectSize .= ' mm';
+            }
+            if (isset($_FILES["upload-image"])) {
+                $uploadsDir = 'uploads/';
+                $targetFile = basename($_FILES["upload-image"]["name"]);
+                $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+                $name = $_FILES['upload-image']['name'];
+                $filePath = $uploadsDir . $targetFile;
+                if ($_FILES["upload-image"]["size"] > 10000000) {
+                    $errorMessages[] = "Your image file is too large. The max size is 10 MB.";
+                }
+                if (($imageFileType !== "jpg" && $imageFileType !== "jpeg")) {
+                    $errorMessages[] = "Only JPG or JPEG image files are allowed.";
+                }
+            } else {
+                $errorMessages[] = "You did not upload a valid image file.";
+            }
+            if (empty($errorMessages)) {
+                move_uploaded_file($_FILES['upload-image']['tmp_name'], $uploadsDir . $name);
+                $addInsect->execute();
+                echo '<div class="success-message"><p>Your insect was uploaded successfully and is added to the collection!</p>';
+                echo '<a href="index.php"><button class="pop-up-button">Great, thanks!</button></a></div>';
+            } else {
+                echo '<div class="error-message"><p>Sorry, your insect could not be added to the collection!</p>';
+                if(count($errorMessages) > 1) {
+                    echo "<p>There were a few problems:</p><ul>";
+                    } elseif (count($errorMessages) === 1) {
+                    echo "<p>There was a problem:</p>";
+                   }
+                foreach ($errorMessages as $errorMessage) {
+                    echo '<li>' . $errorMessage . '</li></ul>';
+                }
+                echo '<a href="#add-insect-form"><button class="pop-up-button">Try again!</button></a></div>';
+                echo '</div';
+            }
+        }
+?>
 
-$player1_card1 = $keys_cards[$random_number1];
-$player1_card1_value = $cards[$player1_card1];
+<!DOCTYPE html>
 
-$player1_card2 = $keys_cards[$random_number2];
-$player1_card2_value = $cards[$player1_card2];
-
-$player2_card1 = $keys_cards[$random_number3];
-$player2_card1_value = $cards[$player2_card1];
-
-$player2_card2 = $keys_cards[$random_number4];
-$player2_card2_value = $cards[$player2_card2];
-
-$total_score_player1 = $player1_card1_value + $player1_card2_value;
-$total_score_player2 = $player2_card1_value + $player2_card2_value;
-
-if ($total_score_player1 < 22 && $total_score_player1 > $total_score_player2) {
-    echo "Player 1 wins!<br>";
-    if ($total_score_player1 > 15) {
-        echo "And what a win!<br> The cards being an $player1_card1 and an $player1_card2 makes for an incredible score of $total_score_player1";
-    } else if ($total_score_player1 > 10) {
-        echo "The cards being an $player1_card1 and an $player1_card2 makes for quite an average score of $total_score_player1";
-    } else {
-        echo "What a luck! An $player1_card1 and an $player1_card2 makes for quite a terrible score of $total_score_player1";
-    }
-} else if ($total_score_player2 < 22 && $total_score_player2 > $total_score_player1) {
-    echo 'Player 2 wins!<br>';
-    if ($total_score_player2 > 15) {
-        echo "And what a win!<br> The cards being an $player2_card1 and an $player2_card2 makes for an incredible score of $total_score_player2";
-    } else if ($total_score_player1 > 10) {
-        echo "The cards being an $player2_card1 and an $player2_card2 makes for quite an average score of $total_score_player2";
-    } else {
-        echo "What a luck! An $player2_card1 and an $player2_card2 makes for quite a terrible score of $total_score_player2";
-    }
-} else {
-    echo 'No winners this time! Let\'s try again';
-};
+<html lang="en-gb">
+<head>
+    <title>INSECT COLLECTION</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="styles.css">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="https://use.typekit.net/olf2ixx.css">
+    <link rel="stylesheet" href="https://use.typekit.net/olf2ixx.css">
+</head>
+<body>
+    <div class="content-wrapper">
+        <img class="green-leaf" src="images/green_leaf.svg" alt="">
+        <h1>
+           <span class="title-insect">INSECT</span>
+           <span class="title-collector">COLLECTOR</span>
+        </h1>
+        <section class="add-insect-option">
+            <p>Did you spot a new insect?!</p>
+            <a href="#add-insect-form">
+                <button class="add-now-button">add now!</button>
+            </a>
+        </section>
+        <section class="container-insects">
+         <?php
+              foreach ($allInsects as $insect) {
+                   echo printInsect($insect);
+              }
+         ?>
+        </section>
+        <form id="add-insect-form" class="add-insect-form" action="index.php" method="post" enctype="multipart/form-data">
+            <h2>add a new insect</h2>
+            <label for="common-name">common name</label>
+            <input type="text" id="common-name" name="common-name" placeholder="e.g. polyester bee">
+            <label for="species">species</label>
+            <input type="text" id="species" name="species" placeholder="if known, enter scientific name">
+            <label for="date-spotted">date spotted</label>
+            <input type="date" id="date-spotted" name="date-spotted" required>
+            <label for="country-spotted">country spotted</label>
+            <input type="text" id="country-spotted" name="country-spotted" placeholder="where did you spot this insect?" required>
+            <label for="insect-size">Size in mm</label>
+            <input type="text" id="insect-size" name="insect-size" placeholder="what is the approximate size in mm?" required>
+            <label for="upload-image" class="upload-image-button">Upload Image</label>
+            <input type="file" name="upload-image" id="upload-image">
+            <button name="submit" class="add-to-collection-button">add to collection!</button>
+        </form>
+    </div>
+</body>
+</html>
