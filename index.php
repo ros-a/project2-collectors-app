@@ -9,6 +9,66 @@ $query = $db->prepare('SELECT * FROM `insect-collection`;');
 $query->execute();
 $allInsects = $query->fetchAll();
 
+        if(isset($_POST['submit'])) {
+            $commonName = $_POST['common-name'];
+            $species = $_POST['species'];
+            $dateSpotted = $_POST['date-spotted'];
+            $countrySpotted = $_POST['country-spotted'];
+            $insectSize = $_POST['insect-size'];
+            $uploadsDir = 'uploads/';
+            $targetFile = basename($_FILES["upload-image"]["name"]);
+            $imageFileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
+            $name = $_FILES['upload-image']['name'];
+            $filePath = $uploadsDir . $targetFile;
+            $addInsect = $db->prepare("INSERT INTO `insect-collection` (`common_name`, `species`, `date_spotted`, 
+            `country_spotted`, `size`, `image_path`) VALUES (:commonName, :species, :dateSpotted, :countrySpotted, :insectSize, :filePath)");
+            $addInsect->bindParam(':commonName', $commonName);
+            $addInsect->bindParam(':species', $species);
+            $addInsect->bindParam(':dateSpotted', $dateSpotted);
+            $addInsect->bindParam(':countrySpotted', $countrySpotted);
+            $addInsect->bindParam(':insectSize', $insectSize);
+            $addInsect->bindParam(':filePath', $filePath);
+            $errorMessages = [];
+            if (!preg_match_all('/^[A-Za-z\s]+$/', $commonName)) {
+                $errorMessages[] = "You did not enter a valid name.";
+            }
+            if (!preg_match_all('/^[A-Za-z\s]+$/', $species)) {
+                $errorMessages[] = "You did not enter a valid species.";
+            }
+            if (!preg_match_all('/^[A-Za-z\s]+$/', $countrySpotted)) {
+                $errorMessages[] = "You did not enter a valid country.";
+            }
+            if (!preg_match_all('/(\\d)+$\s?(mm)?/', $insectSize)) {
+                $errorMessages[] = "You did not enter a valid insect size.";
+            }
+            if (substr($insectSize, -2) !== 'mm') {
+                $insectSize .= ' mm';
+            }
+            if ($_FILES["upload-image"]["size"] > 10000000) {
+                $errorMessages[] = "Your image file is too large. The max size is 10 MB.";
+            }
+            if ($imageFileType !== "jpg" && $imageFileType !== "jpeg") {
+                $errorMessages[] = "Only JPG or JPEG image files are allowed.";
+            }
+            if (empty($errorMessages)) {
+                move_uploaded_file($_FILES['upload-image']['tmp_name'], $uploadsDir . $name);
+                $addInsect->execute();
+                echo '<div class="success-message"><p>Your insect was uploaded successfully and is added to the collection!</p>';
+                echo '<a href="index.php"><button class="pop-up-button">Great, thanks!</button></a></div>';
+            } else {
+                echo '<div class="error-message"><p>Sorry, your insect could not be added to the collection!</p>';
+                if(count($errorMessages) > 1) {
+                    echo "<p>There were a few problems:</p><ul>";
+                    } elseif (count($errorMessages) === 1) {
+                    echo "<p>There was a problem:</p>";
+                   }
+                foreach ($errorMessages as $errorMessage) {
+                    echo '<li>' . $errorMessage . '</li></ul>';
+                }
+                echo '<a href="#add-insect-form"><button class="pop-up-button">Try again!</button></a></div>';
+                echo '</div';
+            }
+        }
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +77,7 @@ $allInsects = $query->fetchAll();
 <head>
     <title>INSECT COLLECTION</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="styles.css">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link rel="stylesheet" href="https://use.typekit.net/olf2ixx.css">
@@ -47,7 +108,7 @@ $allInsects = $query->fetchAll();
             <label for="common-name">common name</label>
             <input type="text" id="common-name" name="common-name" placeholder="e.g. polyester bee">
             <label for="species">species</label>
-            <input type="text" id="species" name="species" placeholder="if known, please enter the scientific name">
+            <input type="text" id="species" name="species" placeholder="if known, enter scientific name">
             <label for="date-spotted">date spotted</label>
             <input type="date" id="date-spotted" name="date-spotted" required>
             <label for="country-spotted">country spotted</label>
@@ -58,78 +119,6 @@ $allInsects = $query->fetchAll();
             <input type="file" name="upload-image" id="upload-image">
             <button name="submit" class="add-to-collection-button">add to collection!</button>
         </form>
-
-        <?php
-
-        if(isset($_POST['submit'])) {
-
-            $commonName = $_POST['common-name'];
-            $species = $_POST['species'];
-            $dateSpotted = $_POST['date-spotted'];
-            $countrySpotted = $_POST['country-spotted'];
-            $insectSize = $_POST['insect-size'];
-
-            $uploads_dir = 'uploads/';
-            $target_file = basename($_FILES["upload-image"]["name"]);
-            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-            $name = $_FILES['upload-image']['name'];
-            $uploadOk = 1;
-            $filePath = $uploads_dir . $target_file;
-
-
-            $addInsect = "INSERT INTO `insect-collection` (`common_name`, `species`, `date_spotted`, 
-            `country_spotted`, `size`, `image_path`) VALUES (:commonName, :species, :dateSpotted, :countrySpotted, :insectSize, :filePath)";
-
-            $addInsect->bindParam(':commonName', $commonName);
-            $addInsect->bindParam(':species', $species);
-            $addInsect->bindParam(':dateSpotted', $dateSpotted);
-            $addInsect->bindParam(':countrySpotted', $countrySpotted);
-            $addInsect->bindParam(':insectSize', $insectSize);
-            $addInsect->bindParam(':filePath', $filePath);
-
-            $insert = $db->prepare($addInsect);
-            $insert->execute();
-
-            if ($_FILES["upload-image"]["size"] > 1000) {
-                $messages[] = "Your file is too large. The max size is 1000 MB.";
-                }
-            if ($imageFileType !== "JPG" && $imageFileType !== "JPEG") {
-                $messages[] = "Only JPG or JPEG files are allowed.";
-                }
-            if (!empty($messages)) {
-                echo "<p>Sorry, your image file was not uploaded!</p>";
-                echo "<p>There were a few problems:</p>";
-                foreach ($messages as $message) {
-                    echo '<p>' . $message . '<p>';
-                }
-                } elseif ( move_uploaded_file($_FILES['upload-image']['tmp_name'], $uploads_dir . $name)) {
-                echo "<p>Your file was uploaded successfully and is added to the collection</p>!";
-            }
-        }
-
-/*
- *             if ($imageFileType !== ".jpg" && $imageFileType !== ".jpeg") {
-                echo "Please upload a jpg or jpeg file!";
-            } elseif ($) {
-
-             }
-                }
-
-            }
-            $addInsect = "INSERT INTO `insect-collection` (`common_name`, `species`, `date_spotted`,
-            `country_spotted`, `size`, `image_path`) VALUES (:commonName, :species, :dateSpotted, :countrySpotted, :size, :filePath)";
-            $insert = $db->prepare($addInsect);
-            $insert->execute();
-            echo '<p class="success-message">Yay, your insect was successfully added to the collection!</p>';
-            header("index.php");
- */
-
-        // Check if image file is a actual image or fake image
-
-
-
-        ?>
-
     </div>
 </body>
 </html>

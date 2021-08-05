@@ -5,6 +5,11 @@
     padding: 0;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
+
 html {
     scroll-behavior: smooth;
 }
@@ -19,7 +24,7 @@ h1 {
     letter-spacing: 0.2rem;
     line-height: 5.5rem;
     position: absolute;
-    top: 50px;
+    top: 10px;
     color: #fff;
     z-index: 5;
     margin-left: 5px;
@@ -48,7 +53,7 @@ h1 {
     font-weight: 700;
 }
 
-.add-now-button, .add-to-collection-button {
+.add-now-button, .add-to-collection-button, .pop-up-button {
     font-family: scriptorama-markdown-jf, sans-serif;
     font-size: 1.4rem;
     font-weight: 800;
@@ -65,11 +70,6 @@ h1 {
 .add-to-collection-button {
     margin-top: 0;
 }
-
-.add-now-button:hover {
-    cursor: pointer;
-}
-
 
 h2 {
     font-family: scriptorama-markdown-jf, sans-serif;
@@ -127,7 +127,10 @@ h2 {
 }
 
 form {
-    margin-left: 30vw;
+    position: relative;
+    top: 200px;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: #C0E5B7;
     border-radius: 20px;
     width: 400px;
@@ -139,6 +142,7 @@ label {
     padding: 20px 0 15px 0;
     font-weight: 600;
     letter-spacing: 0.05rem;
+    color: #444444;
 }
 
 label, input {
@@ -150,10 +154,6 @@ input {
     padding: 10px 15px 10px 10px;
     border-radius: 10px;
     border: none;
-}
-
-form {
-    margin-bottom: 10px;
 }
 
 .upload-image-button {
@@ -170,6 +170,32 @@ input[type="file"] {
     visibility: hidden;
 }
 
+.error-message, .success-message {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 40vh;
+    padding: 50px;
+    background-color: #E0E0E0;
+    border: 3px solid #565656;
+    border-radius: 20px;
+    z-index: 10;
+}
+
+.error-message>*, .success-message>* {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+}
+
+.error-message > :first-child, .success-message > :first-child {
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.error-message > :nth-child(2), .success-message > :nth-child(2) {
+    font-weight: 600;
+    padding-bottom: 20px;
+}
 
 @media only screen and (max-width: 1100px) {
     .insects {

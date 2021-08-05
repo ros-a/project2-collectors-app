@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.5-10.6.3-MariaDB-1:10.6.3+maria~focal)
 # Database: collectorsApp
-# Generation Time: 2021-08-04 13:21:54 +0000
+# Generation Time: 2021-08-05 10:06:32 +0000
 # ************************************************************
 
 
