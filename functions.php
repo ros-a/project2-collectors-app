@@ -7,7 +7,7 @@ function printInsect (array $dbRow): string {
                     '<h2>' . $dbRow['common_name'] . '</h2>' .
                     '<p class="species">' . $dbRow['species'] . '</p>' .
                     '<p>Date spotted: ' . $dbRow['date_spotted'] . '</p>' .
-                    '<p>Location spotted: ' . $dbRow['location_spotted'] . '</p>' .
+                    '<p>Country spotted: ' . $dbRow['country_spotted'] . '</p>' .
                     '<p>Size: ' . $dbRow['size'] . '</p>' .
                 '</div>';
     } else {
