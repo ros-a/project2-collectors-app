@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.5-10.6.3-MariaDB-1:10.6.3+maria~focal)
 # Database: collectorsApp
-# Generation Time: 2021-08-03 10:12:04 +0000
+# Generation Time: 2021-08-06 10:20:46 +0000
 # ************************************************************
 
 
@@ -31,7 +31,7 @@ CREATE TABLE `insect-collection` (
   `common_name` varchar(100) DEFAULT NULL,
   `species` varchar(100) DEFAULT NULL,
   `date_spotted` varchar(100) DEFAULT NULL,
-  `location_spotted` varchar(100) DEFAULT NULL,
+  `country_spotted` varchar(100) DEFAULT NULL,
   `size` varchar(100) DEFAULT NULL,
   `image_path` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -40,7 +40,7 @@ CREATE TABLE `insect-collection` (
 LOCK TABLES `insect-collection` WRITE;
 /*!40000 ALTER TABLE `insect-collection` DISABLE KEYS */;
 
-INSERT INTO `insect-collection` (`id`, `common_name`, `species`, `date_spotted`, `location_spotted`, `size`, `image_path`)
+INSERT INTO `insect-collection` (`id`, `common_name`, `species`, `date_spotted`, `country_spotted`, `size`, `image_path`)
 VALUES
 	(1,'Jewel Bug','Scutiphora Pedicellata','2018-03-15','India','5-20 mm','images/jewel_bug.jpeg'),
 	(2,'Nine Spotted Moth','Amata Phegea','2021-03-27','Germany','37-42 mm','images/nine_spotted_moth.jpeg'),
