@@ -83,8 +83,8 @@ $allInsects = $query->fetchAll();
 <head>
     <title>INSECT COLLECTION</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="normalize.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/styles.css">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link rel="stylesheet" href="https://use.typekit.net/olf2ixx.css">
     <link rel="stylesheet" href="https://use.typekit.net/olf2ixx.css">
