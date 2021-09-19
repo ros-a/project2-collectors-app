@@ -1,0 +1,270 @@
+* {
+    box-sizing: border-box;
+    font-family: neue-haas-unica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.content-wrapper {
+    margin: 0 5vw;
+}
+
+h1 {
+    font-family: scriptorama-markdown-jf, sans-serif;
+    font-size: 4rem;
+    letter-spacing: 0.2rem;
+    line-height: 5.5rem;
+    position: absolute;
+    top: 10px;
+    color: #fff;
+    z-index: 5;
+    margin-left: 5px;
+}
+
+.title-collector, .title-insect {
+    display: block;
+    font-family: scriptorama-markdown-jf, sans-serif;
+}
+
+.title-collector {
+    margin-left: 55px;
+}
+
+.add-insect-option {
+    position: relative;
+    top: 70px;
+    right: 80px;
+    text-align: center;
+    float: right;
+}
+
+.add-insect-option p {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.add-now-button, .add-to-collection-button, .pop-up-button {
+    font-family: scriptorama-markdown-jf, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background-color: #F26608;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    margin-top: 30px;
+}
+
+.add-now-button {
+    font-size: 2.2rem;
+}
+
+.add-to-collection-button {
+    margin-top: 0;
+}
+
+h2 {
+    font-family: scriptorama-markdown-jf, sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.15rem;
+    line-height: 3rem;
+    text-transform: uppercase;
+    margin-top: 30px;
+    color: #F26608;
+}
+
+.species {
+    font-weight: 600;
+}
+
+.insects p {
+    font-size: 1.4rem;
+    line-height: 2.5rem;
+}
+
+.green-leaf {
+    position: relative;
+    top: -200px;
+    left: -17px;
+    width: 420px;
+    transform: rotate(-75deg);
+    z-index: 1;
+}
+
+.container-insects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: relative;
+    top: -200px;
+}
+
+.container-insects img {
+    width: 100%;
+}
+
+.container-insects p {
+    font-family: neue-haas-unica, sans-serif;
+}
+
+.insects {
+    width: 33.3%;
+    text-align: center;
+    padding-bottom: 80px;
+}
+
+.image-cropper image {
+    width: 100%;
+    height: auto;
+}
+
+.image-cropper {
+    width: 23vw;
+    height: 23vw;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+}
+
+form {
+    position: relative;
+    top: 200px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #E1F2DD;
+    border-radius: 20px;
+    width: 400px;
+    padding: 1px 0 40px 40px;
+    margin-top: 80px;
+}
+
+label, .upload-image-request {
+    text-transform: uppercase;
+    padding: 20px 0 15px 0;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+    color: #444444;
+}
+
+.upload-image-request {
+    margin-top: 20px;
+}
+
+label, input {
+    display: block;
+}
+
+input {
+    width: 300px;
+    padding: 10px 15px 10px 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+.upload-image-button {
+    cursor: pointer;
+    color: #fff;
+    background: #358721;
+    padding: 7px 7px 7px 13px;
+    width: 160px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+input[type="file"] {
+    visibility: hidden;
+}
+
+.error-message, .success-message {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 40vh;
+    padding: 50px;
+    background-color: #E0E0E0;
+    border: 3px solid #565656;
+    border-radius: 20px;
+    z-index: 10;
+}
+
+.error-message>*, .success-message>* {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+}
+
+.error-message > :first-child, .success-message > :first-child {
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.error-message > :nth-child(2), .success-message > :nth-child(2) {
+    font-weight: 600;
+    padding-bottom: 20px;
+}
+
+@media only screen and (max-width: 1100px) {
+    .insects {
+        width: 50%;
+    }
+    .add-insect-option {
+        right: 0;
+    }
+    .error-message, .success-message {
+        width: 90vw;
+    }
+    .image-cropper {
+        width: 35vw;
+        height: 35vw;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .container-insects {
+        top: -180px;
+    }
+    .add-insect-option {
+        float: none;
+        position: relative;
+        top: -230px;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    h1 {
+        font-size: 2.6rem;
+        line-height: 3.9rem;
+        top: 28px;
+    }
+    .add-insect-option {
+        float: none;
+        position: relative;
+        top: -180px;
+    }
+    .green-leaf {
+        width: 300px;
+        top: -150px;
+    }
+    .container-insects {
+        top: -130px;
+        justify-content: space-around;
+    }
+    .insects {
+        width: 90%;
+    }
+    .image-cropper {
+        width: 65vw;
+        height: 65vw;
+    }
+}
+
