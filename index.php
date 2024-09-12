@@ -24,13 +24,13 @@ $allInsects = $query->fetchAll();
             $addInsect->bindParam(':insectSize', $insectSize);
             $addInsect->bindParam(':filePath', $filePath);
             $errorMessages = [];
-            if (!preg_match_all('/^[A-Za-z\s]+$/', $commonName)) {
+            if (!preg_match_all('/^[A-Za-z\s-]+$/', $commonName) || $commonName === '') {
                 $errorMessages[] = "You did not enter a valid name.";
             }
-            if (!preg_match_all('/^[A-Za-z\s]+$/', $species)) {
+            if ($species !== '' && !preg_match_all('/^[A-Za-z\s-]+$/', $species)) {
                 $errorMessages[] = "You did not enter a valid species.";
             }
-            if (!preg_match_all('/^[A-Za-z\s]+$/', $countrySpotted)) {
+            if (!preg_match_all('/^[A-Za-z\s-]+$/', $countrySpotted)) {
                 $errorMessages[] = "You did not enter a valid country.";
             }
             if (!preg_match_all('/(\\d)+$\s?(mm)?/', $insectSize)) {
@@ -52,7 +52,7 @@ $allInsects = $query->fetchAll();
                     $errorMessages[] = "Only JPG or JPEG image files are allowed.";
                 }
             } else {
-                $errorMessages[] = "You did not upload a valid image file.";
+                    $errorMessages[] = "You did not upload a valid image file.";
             }
             if (empty($errorMessages)) {
                 move_uploaded_file($_FILES['upload-image']['tmp_name'], $uploadsDir . $name);
@@ -62,13 +62,15 @@ $allInsects = $query->fetchAll();
             } else {
                 echo '<div class="error-message"><p>Sorry, your insect could not be added to the collection!</p>';
                 if(count($errorMessages) > 1) {
-                    echo "<p>There were a few problems:</p><ul>";
+                    echo '<p>There were a few problems:</p>';
+                    echo '<ul>';
                     } elseif (count($errorMessages) === 1) {
-                    echo "<p>There was a problem:</p>";
+                    echo '<p>There was a problem:</p>';
                    }
                 foreach ($errorMessages as $errorMessage) {
-                    echo '<li>' . $errorMessage . '</li></ul>';
+                    echo '<li>' . $errorMessage . '</li>';
                 }
+                echo '</ul>';
                 echo '<a href="#add-insect-form"><button class="pop-up-button">Try again!</button></a></div>';
                 echo '</div';
             }
@@ -81,8 +83,8 @@ $allInsects = $query->fetchAll();
 <head>
     <title>INSECT COLLECTION</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="normalize.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/styles.css">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link rel="stylesheet" href="https://use.typekit.net/olf2ixx.css">
     <link rel="stylesheet" href="https://use.typekit.net/olf2ixx.css">
@@ -110,7 +112,7 @@ $allInsects = $query->fetchAll();
         <form id="add-insect-form" class="add-insect-form" action="index.php" method="post" enctype="multipart/form-data">
             <h2>add a new insect</h2>
             <label for="common-name">common name</label>
-            <input type="text" id="common-name" name="common-name" placeholder="e.g. polyester bee">
+            <input type="text" id="common-name" name="common-name" placeholder="e.g. polyester bee"  required>
             <label for="species">species</label>
             <input type="text" id="species" name="species" placeholder="if known, enter scientific name">
             <label for="date-spotted">date spotted</label>
@@ -119,7 +121,8 @@ $allInsects = $query->fetchAll();
             <input type="text" id="country-spotted" name="country-spotted" placeholder="where did you spot this insect?" required>
             <label for="insect-size">Size in mm</label>
             <input type="text" id="insect-size" name="insect-size" placeholder="what is the approximate size in mm?" required>
-            <label for="upload-image" class="upload-image-button">Upload Image</label>
+            <p class="upload-image-request">upload an image</p>
+            <label for="upload-image" class="upload-image-button">Choose Image</label>
             <input type="file" name="upload-image" id="upload-image">
             <button name="submit" class="add-to-collection-button">add to collection!</button>
         </form>

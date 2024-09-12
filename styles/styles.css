@@ -9,7 +9,6 @@ button:hover {
     cursor: pointer;
 }
 
-
 html {
     scroll-behavior: smooth;
 }
@@ -39,7 +38,6 @@ h1 {
     margin-left: 55px;
 }
 
-
 .add-insect-option {
     position: relative;
     top: 70px;
@@ -49,7 +47,7 @@ h1 {
 }
 
 .add-insect-option p {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 700;
 }
 
@@ -65,6 +63,10 @@ h1 {
     border: none;
     color: #fff;
     margin-top: 30px;
+}
+
+.add-now-button {
+    font-size: 2.2rem;
 }
 
 .add-to-collection-button {
@@ -108,8 +110,7 @@ h2 {
 }
 
 .container-insects img {
-    border-radius: 50%;
-    width: 80%;
+    width: 100%;
 }
 
 .container-insects p {
@@ -117,13 +118,23 @@ h2 {
 }
 
 .insects {
-    width: 33%;
+    width: 33.3%;
     text-align: center;
-    padding-bottom: 100px;
+    padding-bottom: 80px;
 }
 
-.insects image {
+.image-cropper image {
     width: 100%;
+    height: auto;
+}
+
+.image-cropper {
+    width: 23vw;
+    height: 23vw;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
 }
 
 form {
@@ -131,18 +142,23 @@ form {
     top: 200px;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #C0E5B7;
+    background-color: #E1F2DD;
     border-radius: 20px;
     width: 400px;
     padding: 1px 0 40px 40px;
+    margin-top: 80px;
 }
 
-label {
+label, .upload-image-request {
     text-transform: uppercase;
     padding: 20px 0 15px 0;
     font-weight: 600;
     letter-spacing: 0.05rem;
     color: #444444;
+}
+
+.upload-image-request {
+    margin-top: 20px;
 }
 
 label, input {
@@ -163,7 +179,7 @@ input {
     padding: 7px 7px 7px 13px;
     width: 160px;
     border-radius: 5px;
-    margin-top: 35px;
+    margin-top: 5px;
 }
 
 input[type="file"] {
@@ -204,6 +220,13 @@ input[type="file"] {
     .add-insect-option {
         right: 0;
     }
+    .error-message, .success-message {
+        width: 90vw;
+    }
+    .image-cropper {
+        width: 35vw;
+        height: 35vw;
+    }
 }
 
 @media only screen and (max-width: 920px) {
@@ -238,6 +261,10 @@ input[type="file"] {
     }
     .insects {
         width: 90%;
+    }
+    .image-cropper {
+        width: 65vw;
+        height: 65vw;
     }
 }
 

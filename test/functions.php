@@ -16,7 +16,7 @@ class Functions extends TestCase
             'country_spotted' => 'India',
             'size' => '5-20 mm',
             'image_path' => 'images/jewel_bug.jpeg'];
-        $expectedOutput = '<div class="insects"><img src="images/jewel_bug.jpeg" alt="Image of a Jewel Bug"><h2>Jewel Bug</h2>' .
+        $expectedOutput = '<div class="insects"><div class="image-cropper"><img src="images/jewel_bug.jpeg" alt="Image of a Jewel Bug"></div><h2>Jewel Bug</h2>' .
             '<p class="species">Scutiphora Pedicellata</p><p>Date spotted: 2018-03-15</p>' .
              '<p>Country spotted: India</p><p>Size: 5-20 mm</p></div>';
         $actualOutput = printInsect($input);
